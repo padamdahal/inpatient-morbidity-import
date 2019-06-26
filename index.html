@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--ng-app="appMenu"> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Inpatient Morbidity Import App</title>
+
+    <link href="bs-css/bootstrap.min.css" rel="stylesheet">
+    <link href="bs-css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link type="text/css" rel="stylesheet" href="../../../../dhis-web-commons/font-awesome/css/font-awesome.min.css"/>
+	<link type="text/css" rel="stylesheet" media="screen" href="../../../../dhis-web-commons/javascripts/jQuery/ui/css/redmond/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" media="screen" href="../../../../dhis-web-commons/css/light_blue/light_blue.css">
+	<link type="text/css" rel="stylesheet" media="screen,print" href="../../../../dhis-web-commons/css/widgets.css" />
+	
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/ext/ext-all.js"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.min.js?_rev=080a9f7"></script>
+		
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.utils.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.ext.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.metadata.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.tablesorter.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.upload-1.0.2.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.dhisAjaxSelect.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/ui/jquery-ui.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/ui/jquery.blockUI.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.validate.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.validate.ext.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.cookie.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.glob.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.date.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.tmpl.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.autogrow.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/jquery.fileupload.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/underscore.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/filesize.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.util.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/commons.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/commons.ajax.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/lists.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/periodType.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/date.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/json2.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/validationRules.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.array.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.select.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.plus.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/select2/select2.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.nepali.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.period.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.picker.min.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.selected.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.comparator.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.availability.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.trigger.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.sharing.js?_rev=080a9f7"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.validation.js?_rev=080a9f7"></script>
+		
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.ss.js?_rev=19841"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.ls.js?_rev=19841"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.idb.js?_rev=19841"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.memory.js?_rev=19841"></script>
+	<script type="text/javascript" src="../../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.js?_rev=19841"></script>
+	
+	<script type="text/javascript" src="ouwt.js"></script>
+	<script type="text/javascript" src="icd-dhis-map.js"></script>
+	<!--script type="text/javascript" src="category_options.js"></script-->
+	<style>
+		.app-title{background:#276696;color:#fff;margin-bottom:10px;margin-top:3px;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)}
+		.home-menu{float:right;color:#fff;margin-top:-2px;cursor:pointer }
+		.sidebar{border-right:1px solid #efefef;min-height:500px;}
+		#searchField{border:1px solid #ececec;font-size:12px;padding:0 5px;}
+		#orgUnitTree{font-family:calibri;overflow:scroll;height:450px;max-height:450px;width:100%;font-size:12px;}
+		#orgUnitTree ul, #orgUnitTree ul ul{list-style:none;padding-left:10px}
+		#orgUnitTree .selected{font-weight:bold;color:orange;}
+		
+		.param-orgunit-period{height:auto;padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+		.param-file{height:auto;padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+		.fileupload{position:relative;float:left;}
+		#drop{position:relative;float:left;width:100%;border:1px dashed orange;padding:13px 5px;color:#999;font-weight:bold;border-radius:5px;}
+		.download-template{position:relative;float:left;width:100%;padding:13px 5px;color:#fff;font-weight:bold;margin-right:3px;}
+		.info-upload-progress{padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+		.progress-title{font-family:verdana;font-size:12px;margin-bottom:5px;}
+		.proBar-container{padding:2px;height:12px;margin-bottom:10px;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75) inset;border-radius:4px;overflow:hidden}
+		#proBar{background:green;height:8px;color:#fff;display:none;width:0%}
+		.summary{width:100%;font-size:10px;border:1px solid #efefef;margin-right:5px;resize: none;}
+		
+		.ui-helper-hidden-accessible{display:none;}
+	</style>
+	
+	<script type="text/javascript">
+		// For periods
+		dhis2.period.format = 'yyyy-mm-dd';
+        dhis2.period.calendar = $.calendars.instance('nepali');
+        dhis2.period.generator = new dhis2.period.PeriodGenerator( dhis2.period.calendar, dhis2.period.format );
+		dhis2.period.picker = new dhis2.period.DatePicker( dhis2.period.calendar, dhis2.period.format );
+		var serverDate;
+		
+		$(document).ready(function(){
+			var currentYear = dhis2.period.picker.defaults.maxDate._year;
+			var tempYear = currentYear;
+			var currentMonth = dhis2.period.picker.defaults.maxDate._month;
+			var currentDay = dhis2.period.picker.defaults.maxDate._day;
+			var tempMonth = currentMonth;
+			
+			serverDate = currentYear+"-"+currentMonth+"-"+currentDay;
+			
+			loadPeriods(currentYear,currentMonth);
+			
+			function loadPeriods(year,month){
+				$('#selectedPeriodId')
+					.find('option')
+					.remove()
+					.end();
+					
+				var monthsArray = ["Baisakh","Jestha","Ashar","Shrawan","Bhadra","Asoj","Kartik","Mangsir","Paush","Magh","Falgun","Chaitra"];
+				var options = null;
+				for (i = month-1; i > 0; i--) {
+					var m = i;
+					if(i<=9){
+						m = "0"+i;
+					}
+					options += "<option value='"+year+m+"'>"+monthsArray[i-1]+" "+year+"</option>";
+				}
+				$("#selectedPeriodId").append(options);
+			}
+			
+			window.previousPeriodsSelected = function(){
+				var year = tempYear-1;
+				var month = 13;
+				loadPeriods(year,month);
+				tempYear = year;
+			}
+			
+			window.nextPeriodsSelected = function(){
+				var year = tempYear+1;
+				var month = 13;
+				if(year >= currentYear){
+					year = currentYear;
+					month = currentMonth;
+				}
+				loadPeriods(year,month);
+				tempYear = year;
+			}
+			
+			window.goToHome = function(){
+				var protocol = 'http://';	//window.location.protocol;
+				var hostname = window.location.hostname;
+				var port = window.location.port;
+				if(port != 80){
+					port = ':'+port;
+				}else{
+					port = null;
+				}
+				
+				var suffix = '/hmisnepal';
+				
+				window.location = protocol+hostname+port+suffix;
+			}
+			
+			// Organization Unit search
+			$("#searchField").autocomplete({
+				source: "../../../../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
+				select: function(event,ui) {
+					$("#searchField").val(ui.item.value);
+					selection.findByName();
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 app-title">
+                <h4 class="section-heading">			
+					<img src="img/icon.png" style="width:30px"/> 
+					HMIS Nepal - Inpatient Morbidity Import App 
+					<a class="home-menu btn btn-success" href="javascript:goToHome()"><i class="fa fa-home"></i> Home</a>
+				</h4>
+				<!--div id="dhisDropDownMenu" style="float:right;"></div-->
+            </div>
+        </div>
+	</div>
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 sidebar" id="orgUnits">
+				<div>
+					<input id="searchField" type="text"/>
+					<i class="fa fa-search" style="padding:4px;"></i>
+				</div>
+                <div id="orgUnitTreeContainer">
+					<div id="orgUnitTree" style="width:100%;height:530px;margin:10px 0">
+						<ul>
+						</ul>
+					</div>
+					<img id="ouwt_loader" src="../../../../images/ajax-loader-bar.gif"/>
+				</div>
+            </div>
+			
+			<div class="col-lg-9 col-md-9 col-sm-9" style="padding:0;padding-left:10px;">
+				<div class="col-lg-12 col-md-12 col-sm-12 param-orgunit-period">
+					<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;">
+						<div class="col-lg-2 col-md-2 col-sm-2" style="padding:0 0 5px 0">Organization Unit </div>
+						<div class="col-lg-10 col-md-10 col-sm-10" style="padding:0 0 5px 0;">
+							<input type="text" name="orgUnit" id="orgUnit" placeholder="Select from list..." style="width:403px" readonly/>
+						</div>
+					</div>
+					
+					<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;">
+						<div class="col-lg-2 col-md-2 col-sm-2" style="padding:0 0 5px 0">Period </div>
+						<div  class="col-lg-10 col-md-10 col-sm-10" style="padding:0 0 5px 0">
+							<select id="selectedPeriodId" name="selectedPeriodId" style="width:225px">
+								
+							</select>
+							<input type="button" id="prevButton" style="width:85px" value="Prev year" onclick="previousPeriodsSelected()">
+							<input type="button" id="nextButton" style="width:85px" value="Next year" onclick="nextPeriodsSelected()">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 param-file">
+					<div class="fileupload col-lg-2 col-md-2 col-sm-12" style="padding:0">
+						<div class="btn btn-success"style="position:absolute;top:0;left:0;padding:13px 5px;font-weight:bold;width:100%">
+							<i class="fa fa-upload"></i> Upload Excel file
+						</div>
+						<input class="btn btn-warning" style="opacity:0;padding:10px 5px;width:100%" type="file" name="xlfile" id="xlf" />
+					</div>
+					<div class="col-lg-8" style="padding:0">
+						<div id="drop">... or drop file here...</div>
+					</div>
+					<div class="col-lg-2" style="padding:0;float:right">
+						<!-- ../../../../api/documents/DlwkiMfw921/data -->
+						<a class="download-template" style="padding:left:10px;color:#276696;text-align:right" href="data-template.xlsx">
+							<i class="fa fa-download"></i> Get Template
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 info-upload-progress">
+					<div id="pro-container" class="progress_container">
+						<div class="progress-title">Import Progress: <span id="pro"></span></div>
+						<div class="proBar-container">
+							<div id="proBar"></div>
+						</div>
+						<textarea class="summary" id="events" cols="100" rows="15" readonly></textarea>
+						<div id="aaa"></div>
+					</div>
+					<div id="summaryTable"></div>
+				</div>
+            </div>
+        </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12" style="border-top:1px solid navy;">
+				<span style="font-size:10px">&copy; Health Management Information System, Department of Health Services, Nepal</span>
+			</div>
+		</div>
+	</div>
+	
+	<script src="jszip.js"></script>
+	<script src="xlsx.js"></script>
+		
+	<script>
+		// Select organization unit
+		var selectedOrgUnit;
+		selection.setListenerFunction(function(e){
+			selectedOrgUnit = e;
+			var selectedOrgUnitName = document.getElementsByClassName("selected")[0].innerHTML;
+			document.getElementById('orgUnit').value = selectedOrgUnitName;
+		});
+		
+		var X = XLSX;
+		var wtf_mode = false;
+
+		function fixdata(data) {
+			var o = "", l = 0, w = 10240;
+			for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+			o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+			return o;
+		}
+			
+		/*************** To be used for Data Upload ****************/
+		var progress = document.getElementById("progress");
+		function to_json(workbook) {
+			var result = {};
+			workbook.SheetNames.forEach(function(sheetName) {
+				var roa = X.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+				if(roa.length > 0){
+					result['data'] = roa;
+				}
+			});
+			return result;
+		}
+			
+		function to_csv(workbook) {
+			var result = [];
+			workbook.SheetNames.forEach(function(sheetName) {
+				var csv = X.utils.sheet_to_csv(workbook.Sheets[sheetName]);
+				if(csv.length > 0){
+					result.push("SHEET: " + sheetName);
+					result.push("");
+					result.push(csv);
+				}
+			});
+			return result.join("\n");
+		}
+
+		function process_wb(wb) {
+			var output = "";
+			var format = "json";
+			switch(format) {
+				case "json":
+					output = to_json(wb);
+					break;
+				default:
+					output = to_csv(wb);
+			}
+				
+			// Start uploading data here
+			upload_aggregate_data(output);
+		}
+
+		var drop = document.getElementById('drop');
+		function handleDrop(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			var files = e.dataTransfer.files;
+			var f = files[0];
+			var reader = new FileReader();
+			var name = f.name;
+			reader.onload = function(e) {
+				if(typeof console !== 'undefined'){
+					console.log("Reader onload function");
+				}
+				var data = e.target.result;
+				var wb;
+				var arr = fixdata(data);
+				wb = X.read(btoa(arr), {type: 'base64'});
+				process_wb(wb);
+			};
+				reader.readAsArrayBuffer(f);
+		}
+
+		function handleDragover(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			e.dataTransfer.dropEffect = 'copy';
+		}
+
+		if(drop.addEventListener) {
+			drop.addEventListener('dragenter', handleDragover, false);
+			drop.addEventListener('dragover', handleDragover, false);
+			drop.addEventListener('drop', handleDrop, false);
+		}
+
+		var xlf = document.getElementById('xlf');
+			
+		function handleFile(e) {
+			var files = e.target.files;
+			var f = files[0];
+			{
+				var reader = new FileReader();
+				var name = f.name;
+				reader.onload = function(e) {
+					if(typeof console !== 'undefined'){
+						console.log("Reader onload function.");
+					}
+					var data = e.target.result;
+					var wb;
+					var arr = fixdata(data);
+					wb = X.read(btoa(arr), {type: 'base64'});
+					process_wb(wb);
+				};
+				reader.readAsArrayBuffer(f);
+			}
+		}
+			
+		if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
+			
+		/* Function that uploads the data to the dhis2 server */
+		function upload_aggregate_data(d){
+			var App = {};
+			
+			var excelData = d.data;
+			
+			// Progress bar container
+			var proContainer = document.getElementById("pro-container");
+			// Progress bar	
+			var pro = document.getElementById("pro");
+			
+			// Upload summary 
+			//var summaryTable = '<table><tr><td>Template Row</td><td>ICD Code</td><td>Status</td><td>Imported</td><td>Updated</td><td>Ignored</td><td>Deleted</td></tr>';
+			var uploaded_events = document.getElementById("events");
+			uploaded_events.value = "";
+			
+			// Selected period
+			var selectedPeriodId = document.getElementById('selectedPeriodId').value;
+		
+			// Load Manifest
+			$.ajax({
+				url : 'manifest.webapp',
+				contentType:'application/json; charset=utf-8',
+				dataType:'json',
+				async:false
+			}).done(function(data){
+				App.manifest = data;
+				App.baseUrl = App.manifest.activities.dhis.href;
+			});
+			
+			var totalRows = excelData.length-2;
+			var successCount = 0;
+			var errorCount = 0;
+			excelData.forEach(function(data, index){
+				
+				var singleRow = data;
+				
+				// As per the template, start data at row 2
+				if(index >= 2){
+					// filter the icdCodes by the ICD value in excel file for each row
+					
+					var icdRow = icd.filter(function (icd) { return icd.ICD.toUpperCase() == singleRow["A"].toUpperCase() });
+					var aocID = "";
+					var text = "";
+					var text2 = "";
+					if(typeof icdRow[0] == 'undefined' || icdRow[0] == null){
+						errorCount++;
+						text += "ERROR:\t";
+						text += "ICD code ("+singleRow["A"].toUpperCase()+") does not exists in the system, check the template at row " + parseInt(index+1) + ")\t\n";
+						uploaded_events.value += text;
+						
+						//summaryTable += '<tr><td>'+parseInt(index+1)+'</td><td>'+singleRow["A"].toUpperCase()+'</td><td>ERROR: ICD mismatch</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>';
+						
+					}else{
+						aocID = icdRow[0].COCCode;
+					
+						// Data set to be used
+						var ds = [];
+						ds["inpatientMorbidity"] = "VFv1dMXXS4C";
+					
+						// Data elements to be used
+						var de = [];
+						de["InpatientMorbidityCases"] = "M6iIxQ7dWte";
+						de["InpatientMorbidityDeaths"] = "OGGD4CdMeeW";
+						
+						// DHIS2 IDs for each category combinations
+						var coc = [];
+						coc["less28days_female"] = "FtkLGfaWm6z";
+						coc["less28days_male"] = "TMrazuZ4Va4";
+					
+						coc["29to1yr_female"] = "MQj7sk1V2Wd";
+						coc["29to1yr_male"] = "QQt2JrzlZbo";
+					
+						coc["1to4yrs_female"] = "mh3DYEYBSpg";
+						coc["1to4yrs_male"] = "EkuvSkGwGeG";
+					
+						coc["5to14yrs_female"] = "ImeluxdRw47";
+						coc["5to14yrs_male"] = "YF8d9qgfLzR";
+					
+						coc["15to19yrs_female"] = "lo7vNzsUiBe";
+						coc["15to19yrs_male"] = "dU1fetpED4w";
+					
+						coc["20to29yrs_female"] = "miqFgXB82SV";
+						coc["20to29yrs_male"] = "m05Jven6ovZ";
+					
+						coc["30to39yrs_female"] = "QOM5Xn9HRRF";
+						coc["30to39yrs_male"] = "lu1kdcpahOB";
+					
+						coc["40to49yrs_female"] = "KpJMRZlgWu2";
+						coc["40to49yrs_male"] = "mpbNAZM7jRI";
+					
+						coc["50to59yrs_female"] = "C9vCxjeox4h";
+						coc["50to59yrs_male"] = "XwK3g2awV0e";
+					
+						coc["60plus_female"] = "jFM2Dpyi0rZ";
+						coc["60plus_male"] = "CTpnXIeIGyP";
+					
+						coc["female"] = "ctRSQgWXyV9";
+						coc['male'] = "lcbTuooUUAd";
+					
+						// Prepare data value JSON to be uploaded
+						var dataValueJson = {
+							dataSet: ds["inpatientMorbidity"],
+							completeDate: serverDate,
+							period: selectedPeriodId,
+							orgUnit: selectedOrgUnit[0],
+							attributeOptionCombo: aocID,
+							dataValues: [
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["less28days_female"], value: singleRow["C"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["less28days_male"], value: singleRow["D"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["29to1yr_female"], value: singleRow["E"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["29to1yr_male"], value: singleRow["F"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["1to4yrs_female"], value: singleRow["G"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["1to4yrs_male"], value: singleRow["H"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["5to14yrs_female"], value: singleRow["I"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["5to14yrs_male"], value: singleRow["J"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["15to19yrs_female"], value: singleRow["K"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["15to19yrs_male"], value: singleRow["L"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["20to29yrs_female"], value: singleRow["M"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["20to29yrs_male"], value: singleRow["N"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["30to39yrs_female"], value: singleRow["O"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["30to39yrs_male"], value: singleRow["P"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["40to49yrs_female"], value: singleRow["Q"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["40to49yrs_male"], value: singleRow["R"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["50to59yrs_female"], value: singleRow["S"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["50to59yrs_male"], value: singleRow["T"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["60plus_female"], value: singleRow["U"], comment: "" },
+								{ dataElement: de["InpatientMorbidityCases"], categoryOptionCombo: coc["60plus_male"], value: singleRow["V"], comment: "" },
+								{ dataElement: de["InpatientMorbidityDeaths"], categoryOptionCombo: coc["female"], value: singleRow["W"], comment: "" },
+								{ dataElement: de["InpatientMorbidityDeaths"], categoryOptionCombo: coc["male"], value: singleRow["X"], comment: "" }
+							]
+						};
+					
+						// Call the DHIS API
+						var upload_summary = "";
+						$.ajax({
+							url: App.baseUrl + '/api/dataValueSets',
+							type:'POST',
+							data:JSON.stringify(dataValueJson),
+							contentType:'application/json; charset=utf-8',
+							dataType:'json',
+						}).error(function(data){
+							errorCount++;
+							return false;
+						}).done(function(data){
+							successCount++;
+							
+							var text = " ";
+							text += "Template Row: "+parseInt(index+1) + "\tTemplate ICD: " + singleRow["A"].toUpperCase() + "\t";
+							text += data.status+" :\t";
+							text += "Imported :"+data.importCount.imported+"\t";
+							text += "Updated :"+data.importCount.updated+"\t";
+							text += "Ignored :"+data.importCount.ignored+"\t";
+							text += "Deleted :"+data.importCount.deleted+"\t\n";
+							uploaded_events.value += text;
+							uploaded_events.scrollTop = uploaded_events.scrollHeight;
+							
+							/*
+							summaryTable += "<tr><td>"+parseInt(index+1)+"</td>";
+							summaryTable += "<td>"+singleRow["A"].toUpperCase()+"</td>";
+							summaryTable += "<td>"+data.status+"</td>";
+							summaryTable += "<td>"+data.importCount.imported+"</td>";
+							summaryTable += "<td>"+data.importCount.updated+"</td>";
+							summaryTable += "<td>"+data.importCount.ignored+"</td>";
+							summaryTable += "<td>"+data.importCount.deleted+"</td>";
+							summaryTable += "</tr>";
+							alert(summaryTable);
+							*/
+							var statusPercent = Math.round((successCount + errorCount)/totalRows*100);
+						
+							pro.innerHTML =  statusPercent+"%";
+							var proBar = document.getElementById("proBar");
+							proBar.style.display = "block";
+							proBar.style.width = statusPercent+"%";
+						});
+								
+						// Register dataset compltete
+						var cpFilter = icd.filter(function (icd) { return icd.ICD == singleRow["A"] });
+						if(typeof cpFilter[0] != 'undefined' || cpFilter[0] != null)
+							var _cp = cpFilter[0].COCode;
+						
+						var params = {
+							ds: "VFv1dMXXS4C",
+							pe: selectedPeriodId,
+							cc: "BsKK967PHlW",
+							cp: _cp,
+							ou: selectedOrgUnit[0],
+							multiOu:false
+						};
+					
+						$.ajax( {
+							url: App.baseUrl + '/api/completeDataSetRegistrations',
+							data: params,
+							dataType: 'json',
+							type: 'POST',
+							success: function( data, textStatus, xhr ){
+								console.log("Completing the dataset for "+_cp);
+							},
+							error:  function( xhr, textStatus, errorThrown ){
+								console.log("Error completing the dataset for "+_cp);
+							}
+						});
+					}
+					/*					
+					if(parseInt(index-1) == parseInt(totalRows)){
+						summaryTable += "</table>";
+						document.getElementById("summaryTable").innerHTML = summaryTable;
+					}
+					*/
+				}
+				
+			});
+			
+			
+			
+		}
+		/* end */
+	</script>
+</body>
+</html>
