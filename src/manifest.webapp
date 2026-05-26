@@ -5,19 +5,19 @@
     "launch_path": "/index.html",
     "appType": "APP",
     "icons": {
-        "16": "/img/icon.png",
-        "48": "/img/icon.png",
-        "128": "/img/icon.png"
+        "16": "img/icon.png",
+        "48": "img/icon.png",
+        "128": "img/icon.png"
     },
     "developer": {
-        "name": "Padam Dahal",
-        "url": "http://facebook.com/padamd"
+        "name": "PD",
+        "url": "#"
     },
     "default_locale": "en",
     "activities": {
         "dhis": {
             "href": "*",
-            "namespace": "my-namespace"
+            "namespace": "inpatientmorbidityimport"
         }
     }
 }

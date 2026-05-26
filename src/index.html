@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--ng-app="appMenu"> -->
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Inpatient Morbidity Import App</title>
+
+    <link href="bs-css/bootstrap.min.css" rel="stylesheet">
+    <link href="bs-css/simple-sidebar.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../../dhis-web-commons/font-awesome/css/font-awesome.min.css?_rev=377acd4" />
+    <link type="text/css" rel="stylesheet" media="screen" href="../../../dhis-web-commons/javascripts/jQuery/ui/css/redmond/jquery-ui.css?_rev=377acd4" />
+    <link type="text/css" rel="stylesheet" media="screen,print" href="../../../dhis-web-commons/css/widgets.css?_rev=377acd4" />
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/ui/jquery-ui.min.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/ui/jquery.blockUI.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/underscore.min.js?_rev=377acd4"></script> 
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.util.js?_rev=377acd4"></script> 
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.period.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.min.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.plus.min.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/calendars/jquery.calendars.nepali.min.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.ss.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.ls.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.idb.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.memory.js?_rev=377acd4"></script>
+    <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.storage.js?_rev=377acd4"></script>
+	<script type="text/javascript" src="ouwt.js"></script>
+	<script type="text/javascript" src="icd11.js"></script>
+
+  	<style>
+  		.app-title{background:#276696;color:#fff;margin-bottom:10px;margin-top:3px;}
+  		.home-menu{float:right;color:#fff;margin-top:-2px;cursor:pointer }
+  		.sidebar{border-right:1px solid #efefef;min-height:500px;}
+  		#searchField{border:1px solid #ececec;font-size:12px;padding:0 5px;width:80%}
+  		#orgUnitTree{font-family:calibri;overflow:scroll;height:450px;max-height:450px;width:100%;font-size:12px;}
+  		#orgUnitTree ul, #orgUnitTree ul ul{list-style:none;padding-left:10px}
+  		#orgUnitTree .selected{font-weight:bold;color:orange;}
+  		.param-orgunit-period{height:auto;padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+  		.param-file{height:auto;padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+  		.fileupload{position:relative;float:left;}
+  		#drop{position:relative;float:left;width:100%;border:1px dashed orange;padding:13px 5px;color:#999;font-weight:bold;border-radius:5px;}
+  		.download-template{position:relative;float:left;width:100%;padding:13px 5px;color:#fff;font-weight:bold;margin-right:3px;}
+  		.info-upload-progress{padding:5px;margin-bottom:10px;border-bottom:1px solid #ccc;background:#efefef;}
+  		.progress-title{font-family:verdana;font-size:12px;margin-bottom:5px;}
+  		.proBar-container{padding:2px;height:12px;margin-bottom:10px;box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75) inset;border-radius:4px;overflow:hidden}
+  		#proBar{background:green;height:8px;color:#fff;display:none;width:0%}
+  		.summary{width:100%;font-size:10px;border:1px solid #efefef;margin-right:5px;resize: none;}
+  		.ui-helper-hidden-accessible{display:none;}
+  	</style>
+</head>
+
+<body>
+	<div class="container" style="width:90% !important">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 app-title">
+                <h4 class="section-heading">			
+        					<img src="img/icon.png" style="width:30px"/> HMIS Nepal - Inpatient Morbidity Import App <a class="home-menu btn btn-success" href="/hmis"><i class="fa fa-home"></i> Home</a>
+        				</h4>
+            </div>
+        </div>
+	</div>
+	<div class="container" style="width:90% !important">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 sidebar" id="orgUnits" style="padding-left: 0;">
+      				<div>
+      					<input id="searchField" type="text" placeholder="Search..."/>
+      					<i class="fa fa-search" style="padding:4px;"></i>
+      				</div>
+              <div id="orgUnitTreeContainer">
+					      <div id="orgUnitTree" style="width:100%;height:530px;margin:10px 0">
+      						<ul>
+      						</ul>
+					    </div>
+					    <img id="ouwt_loader" src="../../../images/ajax-loader-bar.gif"/>
+				    </div>
+        </div>
+			
+			<div class="col-lg-9 col-md-9 col-sm-9" style="padding:0;padding-left:10px;">
+				<div class="col-lg-12 col-md-12 col-sm-12 param-orgunit-period">
+					<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;">
+						<div class="col-lg-2 col-md-2 col-sm-2" style="padding:0 0 5px 0">Organization Unit </div>
+						<div class="col-lg-10 col-md-10 col-sm-10" style="padding:0 0 5px 0;">
+							<input type="text" name="orgUnit" id="orgUnit" placeholder="Select from list..." style="width:403px" readonly/>
+						</div>
+					</div>
+					
+					<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;">
+						<div class="col-lg-2 col-md-2 col-sm-2" style="padding:0 0 5px 0">Period </div>
+						<div  class="col-lg-10 col-md-10 col-sm-10" style="padding:0 0 5px 0">
+							<select id="selectedPeriodId" name="selectedPeriodId" style="width:225px">
+								
+							</select>
+							<input type="button" id="prevButton" style="width:85px" value="Prev year" onclick="previousPeriodsSelected()">
+							<input type="button" id="nextButton" style="width:85px" value="Next year" onclick="nextPeriodsSelected()">
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12" style="padding:0;">
+						<div class="col-lg-2 col-md-2 col-sm-2" style="padding:0 0 5px 0">Morbidity/Mortality </div>
+						<div  class="col-lg-10 col-md-10 col-sm-10" style="padding:0 0 5px 0">
+							<select id="dataset" name="dataset" style="width:225px">
+								<option value="M6iIxQ7dWte">Inpatient Morbidity</option>
+								<option value="p64v9xIGIg0">Hospital Mortality</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 param-file">
+					<div class="fileupload col-lg-2 col-md-2 col-sm-12" style="padding:0">
+						<div class="btn btn-success"style="position:absolute;top:0;left:0;padding:13px 5px;font-weight:bold;width:100%">
+							<i class="fa fa-upload"></i> Upload Excel file
+						</div>
+						<input class="btn btn-warning" style="opacity:0;padding:10px 5px;width:100%" type="file" name="xlfile" id="xlf" />
+					</div>
+					<div class="col-lg-8" style="padding:0">
+						<div id="drop">... or drop file here...</div>
+					</div>
+					<div class="col-lg-2" style="padding:0;float:right">
+						<a class="download-template" style="padding-left:10px;color:#276696;text-align:right" href="data-template.xlsx">
+							<i class="fa fa-download"></i> Get Template
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 info-upload-progress">
+					<div id="pro-container" class="progress_container">
+						<div class="progress-title" id="progress"></div>
+						<textarea class="summary" id="events" cols="100" rows="15" readonly></textarea>
+						<div id="aaa"></div>
+					</div>
+					<div id="summaryTable"></div>
+				</div>
+            </div>
+        </div>
+	</div>
+	<div class="container" style="width:90% !important">
+		<div class="row">
+			<div class="col-lg-12" style="border-top:1px solid navy;">
+				<span style="font-size:10px">&copy; Health Management Information System, Department of Health Services, Nepal</span>
+			</div>
+		</div>
+	</div>
+	
+	<script src="jszip.js"></script>
+	<script src="xlsx.js"></script>
+		
+	<script type="text/javascript">		
+		$(document).ready(function(){ 
+			/************************ For periods ******************************/
+			dhis2.period.format = 'yyyy-mm-dd';
+			dhis2.period.calendar = $.calendars.instance('nepali');
+			dhis2.period.generator = new dhis2.period.PeriodGenerator( dhis2.period.calendar, dhis2.period.format );
+			dhis2.period.picker = new dhis2.period.DatePicker( dhis2.period.calendar, dhis2.period.format );
+			var serverDate;
+   
+			var currentYear = dhis2.period.picker.defaults.maxDate._year;
+			var tempYear = currentYear;
+			var currentMonth = dhis2.period.picker.defaults.maxDate._month;
+			var currentDay = dhis2.period.picker.defaults.maxDate._day;
+			var tempMonth = currentMonth;
+      
+      var month = (currentMonth < 10) ? "0" + currentMonth : currentMonth;
+      var day = (currentDay < 10) ? "0" + currentDay : currentDay;
+      
+			serverDate = currentYear + "-" + month + "-" + day;
+  		console.log(serverDate);
+      	
+			loadPeriods(currentYear, currentMonth);
+			
+			function loadPeriods(year, month){
+  				$('#selectedPeriodId')
+  					.find('option')
+  					.remove()
+  					.end();
+  					
+  				var monthsArray = ["Baisakh","Jestha","Ashar","Shrawan","Bhadra","Asoj","Kartik","Mangsir","Paush","Magh","Falgun","Chaitra"];
+  				var options = null;
+  				for (i = month-1; i > 0; i--) {
+  					var m = i;
+  					if(i<=9){
+  						m = "0"+i;
+  					}
+					if((year == 2079 && m > 3) || year > 2079) 
+  					  options += "<option value='"+year+m+"'>"+monthsArray[i-1]+" "+year+"</option>";
+  				}
+  				$("#selectedPeriodId").append(options);
+  			}
+			
+			window.previousPeriodsSelected = function(){
+				var year = tempYear-1;
+				var month = 13;
+				loadPeriods(year, month);
+				tempYear = year;
+			}
+			
+			window.nextPeriodsSelected = function(){
+				var year = tempYear+1;
+				var month = 13;
+				if(year >= currentYear){
+					year = currentYear;
+					month = currentMonth;
+				}
+				loadPeriods(year,month);
+				tempYear = year;
+			}
+			/**********************************************************************/
+      
+			window.goToHome = function(){
+				var protocol = window.location.protocol;
+				var hostname = window.location.hostname;
+				var port = window.location.port;
+				if(port != 80){
+					port = ':'+port;
+				}else{
+					port = null;
+				}
+				
+				var suffix = '/hmis/';
+				
+				window.location = protocol+hostname+port+suffix;
+			}
+      /**************************************************************************/
+			
+			// Organization Unit search
+			$("#searchField").autocomplete({
+				source: "../../../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
+				select: function(event,ui) {
+					$("#searchField").val(ui.item.value);
+					selection.findByName();
+				}
+			});
+      
+ 		  // Select organization unit
+			var selectedOrgUnit;
+			selection.setListenerFunction(function(e){
+				selectedOrgUnit = e;
+				var selectedOrgUnitName = document.getElementsByClassName("selected")[0].innerHTML;
+				document.getElementById('orgUnit').value = selectedOrgUnitName;
+			});
+			
+			/*************** No modifications required ********************/
+			var X = XLSX;
+			var wtf_mode = false;
+			
+			function fixdata(data) {
+				var o = "", l = 0, w = 10240;
+				for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+				o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+				return o;
+			}
+			
+			function to_json(workbook) {
+				var result = {};
+         var firstSheet = workbook.SheetNames[0];
+					var roa = X.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+					if(roa.length > 0){
+						result['data'] = roa;
+					}
+				return result;
+			}
+			
+			function to_csv(workbook) {
+				var result = [];
+        var firstSheet = workbook.SheetNames[0];
+					var csv = X.utils.sheet_to_csv(workbook.Sheets[firstSheet]);
+					if(csv.length > 0){
+						result.push("SHEET: " + sheetName);
+						result.push("");
+						result.push(csv);
+					}
+				return result.join("\n");
+			}
+			
+			var drop = document.getElementById('drop');
+			function handleDrop(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.dataTransfer.files;
+				var f = files[0];
+				var reader = new FileReader();
+				var name = f.name;
+				reader.onload = function(e) {
+					if(typeof console !== 'undefined'){
+						console.log("Reader onload function");
+					}
+					var data = e.target.result;
+					var wb;
+					var arr = fixdata(data);
+					wb = X.read(btoa(arr), {type: 'base64'});
+					process_wb(wb);
+				};
+					reader.readAsArrayBuffer(f);
+			}
+
+			function handleDragover(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				e.dataTransfer.dropEffect = 'copy';
+			}
+
+			if(drop.addEventListener) {
+				drop.addEventListener('dragenter', handleDragover, false);
+				drop.addEventListener('dragover', handleDragover, false);
+				drop.addEventListener('drop', handleDrop, false);
+			}
+
+			var xlf = document.getElementById('xlf');
+			
+			function handleFile(e) {
+				var files = e.target.files;
+				var f = files[0];
+				{
+					var reader = new FileReader();
+					var name = f.name;
+					reader.onload = function(e) {
+						if(typeof console !== 'undefined'){
+							console.log("Reader onload function.");
+						}
+						var data = e.target.result;
+						var wb;
+						var arr = fixdata(data);
+						wb = X.read(btoa(arr), {type: 'base64'});
+						process_wb(wb);
+					};
+					reader.readAsArrayBuffer(f);
+				}
+			}
+			
+			if(xlf.addEventListener){
+        xlf.addEventListener('change', handleFile, false);
+      }
+			/***********************************************************************/
+      
+			function process_wb(wb) {
+				var output = "";
+				var format = "json";
+				switch(format) {
+					case "json":
+						output = to_json(wb);
+						break;
+					default:
+						output = to_csv(wb);
+				}
+					
+				// Start uploading data here
+				upload_aggregate_data(output);
+			}
+
+			/* Function that uploads the data to the dhis2 server */
+			function upload_aggregate_data(d){
+				var dataValueSetsUrl = "../../dataValueSets";
+				//var dataValuesUrl = "/api/dataValues";
+				//var completeUrl = "/api/completeDataSetRegistrations";
+       
+				var App = {};
+				
+        var excelData = d.data;
+        
+				// Upload summary 
+				var uploaded_events = document.getElementById("events");
+				uploaded_events.value = "";
+        
+				// Selected period
+				var selectedPeriodId = document.getElementById('selectedPeriodId').value;
+        
+				// Load Manifest
+				$.ajax({
+					url : 'manifest.webapp',
+					contentType:'application/json; charset=utf-8',
+					dataType:'json',
+					async:false
+				}).done(function(data){
+					App.manifest = data;
+					App.baseUrl = App.manifest.activities.dhis.href;
+				});
+
+				var totalRows = excelData.length-2;
+				var processCount = 0;
+        
+				excelData.forEach(function(data, index){
+          
+          
+					// As per the template, start data at row 2
+					if(index >= 2){
+            processCount++;
+					  $("#progress").html("Processing...");
+						            
+						var aocID = "";
+
+						if(data["A"] != "undefined" && data["AA"] != ""){
+							aocID = data["AA"];
+							var de = $("#dataset").val();   // Data Element
+							var ds = "G5TIM3GE43V";         // Dataset
+							var dataVals = [];
+							
+              var result = [];
+							var resultTemp = [];
+              
+							Object.keys(coc).forEach(key => {
+                if(data[coc[key][1]] != undefined){
+  								var temp = {
+  									dataElement:de,
+  									categoryOptionCombo:coc[key][0],
+  									value: data[coc[key][1]]
+  								};
+  								dataVals.push(temp);
+                }
+							});
+							              
+              // For bulk dataValues per ICD
+							var dataValuesJson = {
+								  "dataSet": ds,
+  								"period": selectedPeriodId,
+  								"attributeOptionCombo": aocID,
+  								"orgUnit": selectedOrgUnit[0],
+                  "completeDate": serverDate,
+								  "dataValues": dataVals
+							};
+
+              $.ajax({
+								url: dataValueSetsUrl,
+								type:'POST',
+								data:JSON.stringify(dataValuesJson),
+                contentType: "application/json",
+								success: function(ajaxdata, textStatus, xhr){
+                  uploaded_events.value += data["A"]+"\t"+textStatus+"\n";
+									if(processCount == totalRows){
+                    $("#progress").html("Completed...");
+									}
+									uploaded_events.scrollTop = uploaded_events.scrollHeight;
+								},
+								error: function(xhr, textStatus, errorThrown ){
+									console.log("Error");
+								}                                                                                                                                            
+							});
+						}
+					}
+				
+				});
+			}
+		});
+	</script>
+</body>
+</html>
